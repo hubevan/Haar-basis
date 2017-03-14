@@ -1,0 +1,16 @@
+import numpy as np
+import numpy.linalg as la
+
+def generate_haar(dim):
+    H4 = [[1,1,1,1],[1,1,-1,-1],[1,-1,0,0],[0,0,1,-1]]
+    n = 4
+    Hn = H4
+    while n < dim:
+        H2n = np.concatenate((np.kron(Hn,[1,1]),np.kron(np.eye(n),[1,-1])),axis = 0)
+        n = n * 2
+        Hn = H2n
+
+    print(len(Hn))
+    for i in range(len(Hn)):
+        Hn[i] = Hn[i] / la.norm(Hn[i])
+    return Hn
